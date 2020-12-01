@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <script src="lib/onsenui/js/onsenui.min.js"></script>
+
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+  <div id="top">
+            <p class="title">AgioDev</p>
+        </div>
+        <div id="sidebar">
+            <a class="active" id="sidebar-home" href="index.html">Home</a>
+            <a id="sidebar-agi" href="agi.html">Agiotas</a>
+            <a id="sidebar-dev" href="dev.html">Devedores</a>
+        </div>
+        <div id="main">
+            <h1 class="title">Eai Agiota, beleza?</h1>
+            <div class="text">
+                <p>Todo mundo já deveu p alguém, e muitas vezes fica díficil quando o devedor não
+                    paga o que deve. A AgioDev está aqui para resolver seus problemas em cobranças
+                    e pagamentos!
+                </p>
+            </div>
+            <div id="buttons">
+                <a href="dev.html"><button>Registre-se como Devedor</button></a>
+                <a href="agi.html"><button>Registre-se como Agiota</button></a>
+                <button>Pagamentos</button>
+            </div>
+        </div>
+        <div id="bottom">
+            <h4>Site criado por Kim de Oliveira e Pedro Bertoluzzi</h4>
+        </div>
+</body>
+</html>
+
+<?php
+include('conexao.php');
+
+/*----------------Fiadores----------------*/
+
+	if($_POST){
+	    if(isset($_POST['CD'])){
+	         Atualizar_Fiadores($_POST['CD'], $_POST['nome'], $_POST['rg'], $_POST['cpf'],
+	         $_POST['telefone'], $_POST['endereco']);
+	    }else{
+	        Cadastrar_Fiadores($_POST['CD'], $_POST['nome'],$_POST['rg'], $_POST['cpf'], 
+	         $_POST['telefone'], $_POST['endereço']);
+	    }
+	}
+	else if(isset($_GET['Excluir_Fiadores'])){
+
+	    Excluir_Fiadores($_GET['Excluir_Fiadores']);
+	    
+	}
+	else if(isset($_GET['listar'])){
+	    $id = ($_GET['Listar_Fiadores'] >= 1) ? $_GET['Listar_Fiadores'] : 0;
+	    Listar_Fiadores($id);
+	}	
+
+/*----------------Agiotas----------------*/
+
+	if($_POST){
+	    if(isset($_POST['CD'])){
+	         Atualizar_Agiotas($_POST['CD'], $_POST['nome'], $_POST['rg'], $_POST['cpf'],
+	         $_POST['telefone'], $_POST['endereco']);
+	    }else{
+	        Cadastrar_Agiotas($_POST['CD'], $_POST['nome'],$_POST['rg'], $_POST['cpf'], 
+	         $_POST['telefone'], $_POST['endereço']);
+	    }
+	}
+	else if(isset($_GET['Excluir_Agiotas'])){
+
+	    Excluir_Agiotas($_GET['Excluir_Agiotas']);
+	    
+	}
+	else if(isset($_GET['listar'])){
+	    $id = ($_GET['Listar_Agiotas'] >= 1) ? $_GET['Listar_Agiotas'] : 0;
+	    Listar_Agiotas($id);
+	}	
+
+/*----------------Pagamentos----------------*/
+
+	if($_POST){
+	    if(isset($_POST['CD_Pagamento'])){
+	         Atualizar_Pagamento($_POST['CD_Pagamento'], $_POST['id_agiota'], 
+	         	$_POST['id_devedor']);
+	    }else{
+	        Cadastrar_Pagamento($_POST['CD_Pagamento'], $_POST['id_agiota'], 
+	        	$_POST['id_devedor']);
+	    }
+	}
+	else if(isset($_GET['Excluir_Pagamento'])){
+
+	    Excluir_Pagamento($_GET['Excluir_Pagamento']);
+	    
+	}
+	else if(isset($_GET['Listar_Pagamento'])){
+	    $id = ($_GET['Listar_Pagamento'] >= 1) ? $_GET['Listar_Pagamento'] : 0;
+	    Listar_Pagamento($id);
+	}	
+
+?>
